@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import PostPreview from '../components/PostPreview';
-import posts from '../data/posts';
+import { usePosts } from '../hooks/usePosts';
 
 function Home() {
+  const { posts } = usePosts();
+
   // Set page title
   useEffect(() => {
     document.title = 'The Craft — A Modern Blog';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import posts from '../data/posts';
+import { usePosts } from '../hooks/usePosts';
 
 /** Estimates reading time from HTML content */
 function getReadingTime(html) {
@@ -21,6 +21,7 @@ function formatDate(dateStr) {
 function PostDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { posts } = usePosts();
   const post = posts.find((p) => p.id === Number(id));
 
   // Update page title when post loads
