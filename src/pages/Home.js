@@ -7,7 +7,7 @@ function Home() {
 
   // Set page title
   useEffect(() => {
-    document.title = 'The Craft — A Modern Blog';
+    document.title = 'Liminality — A Modern Blog';
   }, []);
 
   return (

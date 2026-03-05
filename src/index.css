@@ -21,18 +21,18 @@
 
   /* Selection color */
   ::selection {
-    @apply bg-brand-200 text-brand-900;
+    @apply bg-gray-200 text-black;
   }
 }
 
 @layer components {
-  /* Gradient accent used across the site */
+  /* Monochrome accent used across the site */
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent;
+    @apply text-black;
   }
 
   .gradient-bar {
-    @apply h-1 bg-gradient-to-r from-brand-600 via-brand-400 to-brand-300 rounded-full;
+    @apply h-px bg-gray-300 rounded-full;
   }
 
   /* Card hover lift effect */
@@ -60,10 +60,10 @@
     @apply list-decimal list-inside mb-6 space-y-2 text-gray-700;
   }
   .prose-blog blockquote {
-    @apply border-l-4 border-brand-400 pl-6 italic text-gray-600 my-8;
+    @apply border-l-4 border-gray-400 pl-6 italic text-gray-600 my-8;
   }
   .prose-blog code {
-    @apply bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-brand-700;
+    @apply bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-900;
   }
   .prose-blog pre {
     @apply bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto mb-6;
@@ -72,7 +72,7 @@
     @apply bg-transparent text-gray-100 p-0;
   }
   .prose-blog a {
-    @apply text-brand-600 underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600 transition-colors;
+    @apply text-gray-900 underline decoration-gray-400 underline-offset-2 hover:decoration-gray-900 transition-colors;
   }
   .prose-blog img {
     @apply rounded-xl my-8;

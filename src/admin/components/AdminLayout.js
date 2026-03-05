@@ -10,15 +10,12 @@ function AdminLayout({ children }) {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-brand-400 flex items-center justify-center text-white font-bold text-xs shadow-md">
-                TC
-              </div>
-              <span className="font-serif font-bold text-gray-900 group-hover:text-brand-700 transition-colors">
-                The Craft
+            <Link to="/" className="group">
+              <span className="font-serif font-bold text-gray-900 group-hover:text-black transition-colors">
+                Liminality
               </span>
             </Link>
-            <span className="bg-brand-100 text-brand-700 rounded-full px-3 py-1 text-xs font-medium">
+            <span className="bg-gray-100 text-gray-900 rounded-full px-3 py-1 text-xs font-medium">
               Admin
             </span>
           </div>

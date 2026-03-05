@@ -27,9 +27,9 @@ function PostDetail() {
   // Update page title when post loads
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} — The Craft`;
+      document.title = `${post.title} — Liminality`;
     } else {
-      document.title = 'Post Not Found — The Craft';
+      document.title = 'Post Not Found — Liminality';
     }
   }, [post]);
 
@@ -45,7 +45,7 @@ function PostDetail() {
         </p>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 text-white rounded-full font-medium hover:bg-brand-700 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
         >
           &larr; Back to blog
         </Link>
@@ -65,7 +65,7 @@ function PostDetail() {
       {/* Back button */}
       <button
         onClick={() => navigate('/')}
-        className="group inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-brand-600 transition-colors mb-10"
+        className="group inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-gray-900 transition-colors mb-10"
       >
         <span className="group-hover:-translate-x-1 transition-transform">&larr;</span>
         Back to blog
@@ -80,7 +80,7 @@ function PostDetail() {
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
           {/* Author */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-200 to-brand-100 flex items-center justify-center text-brand-700 text-xs font-semibold">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 text-xs font-semibold">
               {post.author.charAt(0)}
             </div>
             <span className="font-medium text-gray-700">{post.author}</span>
@@ -93,7 +93,7 @@ function PostDetail() {
         </div>
       </header>
 
-      {/* Gradient divider */}
+      {/* Divider */}
       <div className="gradient-bar w-24 mb-10" />
 
       {/* Post body */}
@@ -108,12 +108,12 @@ function PostDetail() {
           {prevPost ? (
             <Link
               to={`/post/${prevPost.id}`}
-              className="group flex-1 p-5 rounded-xl border border-gray-200 hover:border-brand-300 hover:bg-brand-50 transition-all"
+              className="group flex-1 p-5 rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all"
             >
               <span className="text-xs text-gray-400 uppercase tracking-wider">
                 &larr; Previous
               </span>
-              <p className="text-sm font-medium text-gray-900 mt-1 group-hover:text-brand-700 transition-colors">
+              <p className="text-sm font-medium text-gray-900 mt-1 group-hover:text-gray-900 transition-colors">
                 {prevPost.title}
               </p>
             </Link>
@@ -124,12 +124,12 @@ function PostDetail() {
           {nextPost ? (
             <Link
               to={`/post/${nextPost.id}`}
-              className="group flex-1 p-5 rounded-xl border border-gray-200 hover:border-brand-300 hover:bg-brand-50 transition-all text-right"
+              className="group flex-1 p-5 rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all text-right"
             >
               <span className="text-xs text-gray-400 uppercase tracking-wider">
                 Next &rarr;
               </span>
-              <p className="text-sm font-medium text-gray-900 mt-1 group-hover:text-brand-700 transition-colors">
+              <p className="text-sm font-medium text-gray-900 mt-1 group-hover:text-gray-900 transition-colors">
                 {nextPost.title}
               </p>
             </Link>

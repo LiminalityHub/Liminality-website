@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function NotFound() {
   useEffect(() => {
-    document.title = '404 — The Craft';
+    document.title = '404 — Liminality';
   }, []);
 
   return (
@@ -25,7 +25,7 @@ function NotFound() {
 
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-600 text-white rounded-full font-medium hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-200 transition-all"
+          className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white rounded-full font-medium hover:bg-gray-800 hover:shadow-md transition-all"
         >
           <span>&larr;</span>
           Back to Home

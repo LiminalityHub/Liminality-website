@@ -15,7 +15,7 @@ function AdminPostEditor() {
   useEffect(() => {
     document.title = isEditing
       ? `Edit Post — ${post?.title || 'Loading...'}`
-      : 'New Post — The Craft';
+      : 'New Post — Liminality';
   }, [isEditing, post]);
 
   const handleSubmit = (formData) => {
@@ -34,7 +34,7 @@ function AdminPostEditor() {
           <p className="text-gray-400 mb-8 italic">Post not found.</p>
           <Link
             to="/admin/dashboard"
-            className="text-brand-600 font-medium hover:underline"
+            className="text-gray-900 font-medium hover:underline"
           >
             &larr; Back to dashboard
           </Link>
@@ -57,7 +57,7 @@ function AdminPostEditor() {
           </div>
           <Link
             to="/admin/dashboard"
-            className="text-sm text-gray-400 hover:text-brand-600 transition-colors"
+            className="text-sm text-gray-400 hover:text-gray-900 transition-colors"
           >
             &larr; Back to dashboard
           </Link>

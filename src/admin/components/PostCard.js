@@ -23,7 +23,7 @@ function PostCard({ post, onDelete }) {
           </p>
           <div className="flex items-center gap-3 text-xs text-gray-400">
             <div className="flex items-center gap-1.5">
-              <div className="w-5 h-5 rounded-full bg-gradient-to-br from-brand-200 to-brand-100 flex items-center justify-center text-brand-700 text-[10px] font-semibold">
+              <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 text-[10px] font-semibold">
                 {post.author.charAt(0)}
               </div>
               <span>{post.author}</span>
@@ -43,7 +43,7 @@ function PostCard({ post, onDelete }) {
           </Link>
           <Link
             to={`/admin/posts/edit/${post.id}`}
-            className="px-4 py-2 text-xs font-medium text-brand-600 border border-brand-200 rounded-full hover:bg-brand-50 transition-colors"
+            className="px-4 py-2 text-xs font-medium text-gray-900 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
           >
             Edit
           </Link>

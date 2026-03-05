@@ -11,7 +11,7 @@ function AdminDashboard() {
   const [isImporting, setIsImporting] = useState(false);
 
   useEffect(() => {
-    document.title = 'Admin Dashboard — The Craft';
+    document.title = 'Admin Dashboard — Liminality';
   }, []);
 
   const handleDelete = (id) => {
@@ -61,7 +61,7 @@ function AdminDashboard() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <label className="cursor-pointer px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-full font-medium hover:border-brand-400 hover:text-brand-600 transition-all text-sm flex items-center gap-2">
+            <label className="cursor-pointer px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-full font-medium hover:border-gray-400 hover:text-gray-900 transition-all text-sm flex items-center gap-2">
               <input
                 type="file"
                 accept=".json"
@@ -72,13 +72,13 @@ function AdminDashboard() {
             </label>
             <button
               onClick={handleExport}
-              className="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-full font-medium hover:border-brand-400 hover:text-brand-600 transition-all text-sm"
+              className="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-full font-medium hover:border-gray-400 hover:text-gray-900 transition-all text-sm"
             >
               Export JSON
             </button>
             <Link
               to="/admin/posts/new"
-              className="px-6 py-2.5 bg-brand-600 text-white rounded-full font-medium hover:bg-brand-700 transition-colors text-sm shadow-sm"
+              className="px-6 py-2.5 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors text-sm shadow-sm"
             >
               + New Post
             </Link>
@@ -101,7 +101,7 @@ function AdminDashboard() {
             <p className="text-gray-400 mb-6 italic">No posts yet.</p>
             <Link
               to="/admin/posts/new"
-              className="text-brand-600 font-medium hover:underline"
+              className="text-gray-900 font-medium hover:underline"
             >
               Create your first post &rarr;
             </Link>

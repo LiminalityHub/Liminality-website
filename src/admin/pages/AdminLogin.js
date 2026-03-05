@@ -16,7 +16,7 @@ function AdminLogin() {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    document.title = 'Admin Login — The Craft';
+    document.title = 'Admin Login — Liminality';
   }, []);
 
   const handleSubmit = (e) => {
@@ -55,7 +55,7 @@ function AdminLogin() {
                 }}
                 placeholder="Password"
                 autoFocus
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none transition-all"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-gray-400 focus:ring-2 focus:ring-gray-200 outline-none transition-all"
               />
               {error && (
                 <p className="text-red-500 text-sm mt-2">{error}</p>
@@ -65,7 +65,7 @@ function AdminLogin() {
             <button
               type="submit"
               disabled={!password.trim()}
-              className="w-full px-6 py-3 bg-brand-600 text-white rounded-full font-medium hover:bg-brand-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Enter
             </button>
@@ -75,7 +75,7 @@ function AdminLogin() {
         <div className="text-center mt-6">
           <Link
             to="/"
-            className="text-sm text-gray-400 hover:text-brand-600 transition-colors"
+            className="text-sm text-gray-400 hover:text-gray-900 transition-colors"
           >
             &larr; Back to blog
           </Link>

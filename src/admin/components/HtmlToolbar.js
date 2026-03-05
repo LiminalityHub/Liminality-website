@@ -58,7 +58,7 @@ function HtmlToolbar({ textareaRef }) {
               insertTag(textareaRef.current, tool.before, tool.after);
             }
           }}
-          className="px-2.5 py-1 text-xs font-mono font-medium text-gray-600 bg-gray-100 border border-gray-200 rounded-lg hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-colors"
+          className="px-2.5 py-1 text-xs font-mono font-medium text-gray-600 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300 transition-colors"
         >
           {tool.label}
         </button>

@@ -31,12 +31,9 @@ function Header() {
     >
       <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Logo / Site name */}
-        <Link to="/" className="group flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-brand-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-200 group-hover:shadow-lg group-hover:shadow-brand-300 transition-shadow">
-            TC
-          </div>
-          <span className="text-xl font-serif font-bold text-gray-900 group-hover:text-brand-700 transition-colors">
-            The Craft
+        <Link to="/" className="group">
+          <span className="text-xl font-serif font-bold text-gray-900 group-hover:text-black transition-colors">
+            Liminality
           </span>
         </Link>
 
@@ -46,7 +43,7 @@ function Header() {
             to="/"
             className={`text-sm font-medium transition-colors ${
               location.pathname === '/'
-                ? 'text-brand-600'
+                ? 'text-gray-900'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -62,7 +59,7 @@ function Header() {
           </a>
           <Link
             to="/admin"
-            className="px-5 py-2 bg-gray-900 text-white rounded-full text-xs font-bold hover:bg-brand-600 transition-colors shadow-sm"
+            className="px-5 py-2 bg-gray-900 text-white rounded-full text-xs font-bold hover:bg-black transition-colors shadow-sm"
           >
             Admin
           </Link>

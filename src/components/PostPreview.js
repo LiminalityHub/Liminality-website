@@ -26,7 +26,7 @@ function PostPreview({ post }) {
         <div className="gradient-bar w-12 mb-6 group-hover:w-20 transition-all duration-300" />
 
         {/* Title */}
-        <h2 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-brand-700 transition-colors leading-snug">
+        <h2 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-gray-900 transition-colors leading-snug">
           {post.title}
         </h2>
 
@@ -39,7 +39,7 @@ function PostPreview({ post }) {
         <div className="flex items-center justify-between text-sm text-gray-400 pt-4 border-t border-gray-100">
           <div className="flex items-center gap-3">
             {/* Author avatar placeholder */}
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-brand-200 to-brand-100 flex items-center justify-center text-brand-700 text-xs font-semibold">
+            <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 text-xs font-semibold">
               {post.author.charAt(0)}
             </div>
             <span className="text-gray-600 font-medium">{post.author}</span>

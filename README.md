@@ -1,4 +1,4 @@
-# The Craft — React Blog
+# Liminality — React Blog
 
 A modern, responsive static blog built with **React 18**, **React Router v6**, and **Tailwind CSS**.
 

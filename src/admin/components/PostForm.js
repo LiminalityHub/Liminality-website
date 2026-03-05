@@ -44,7 +44,7 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
     form.date;
 
   const inputClass =
-    'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none transition-all bg-white';
+    'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-gray-400 focus:ring-2 focus:ring-gray-200 outline-none transition-all bg-white';
 
   return (
     <form onSubmit={handleSubmit}>
@@ -163,7 +163,7 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
         <button
           type="submit"
           disabled={!isValid}
-          className="px-8 py-3 bg-brand-600 text-white rounded-full font-medium hover:bg-brand-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {submitLabel || 'Save Post'}
         </button>
