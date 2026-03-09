@@ -38,21 +38,23 @@ function Header() {
           <Link
             to="/"
             className={`text-sm font-medium transition-colors ${
-              location.pathname === '/'
+              location.pathname === '/' || location.pathname.startsWith('/post/')
                 ? 'text-gray-900'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
-            Home
+            Articles
           </Link>
-          <a
-            href="https://github.com/Lucalangella/react-blog"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:inline"
+          <Link
+            to="/projects"
+            className={`text-sm font-medium transition-colors ${
+              location.pathname === '/projects'
+                ? 'text-gray-900'
+                : 'text-gray-500 hover:text-gray-900'
+            }`}
           >
-            GitHub
-          </a>
+            Projects
+          </Link>
         </nav>
       </div>
     </header>

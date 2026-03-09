@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import PostDetail from './pages/PostDetail';
+import Projects from './pages/Projects';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/post/:id" element={<PostDetail />} />
+            <Route path="/projects" element={<Projects />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
