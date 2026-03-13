@@ -1,5 +1,15 @@
 [
   {
+    "id": 1773394696014,
+    "title": "Test Admin",
+    "excerpt": "This is a test to check the API connection",
+    "content": "<h1>U Calabrisi</h1><p></p>",
+    "author": "Mik",
+    "date": "2026-03-13",
+    "status": "published",
+    "updatedAt": "2026-03-13T09:38:16.014Z"
+  },
+  {
     "id": 1,
     "title": "Welcome to Liminality",
     "excerpt": "This is a seed post from the local API.",

@@ -21,17 +21,46 @@ function formatDate(dateStr) {
 function PostDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { posts } = usePosts();
+  const { posts, loading, error } = usePosts();
   const post = posts.find((p) => p.id === Number(id));
 
   // Update page title when post loads
   useEffect(() => {
+    if (loading) {
+      document.title = 'Loading… — Liminality';
+      return;
+    }
     if (post) {
       document.title = `${post.title} — Liminality`;
     } else {
       document.title = 'Post Not Found — Liminality';
     }
-  }, [post]);
+  }, [post, loading]);
+
+  if (loading) {
+    return (
+      <div className="max-w-3xl mx-auto px-6 py-24 text-center">
+        <p className="text-gray-500">Loading post…</p>
+      </div>
+    );
+  }
+
+  if (error && !post) {
+    return (
+      <div className="max-w-3xl mx-auto px-6 py-24 text-center">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
+          Unable to load post
+        </h1>
+        <p className="text-gray-500 mb-8">{error}</p>
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+        >
+          &larr; Back to blog
+        </Link>
+      </div>
+    );
+  }
 
   // Post not found — redirect to 404
   if (!post) {

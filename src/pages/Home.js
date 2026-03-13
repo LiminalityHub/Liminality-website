@@ -3,7 +3,7 @@ import PostPreview from '../components/PostPreview';
 import { usePosts } from '../hooks/usePosts';
 
 function Home() {
-  const { posts } = usePosts();
+  const { posts, loading, error } = usePosts();
 
   // Set page title
   useEffect(() => {
@@ -32,6 +32,14 @@ function Home() {
         </span>
         <div className="gradient-bar flex-1 opacity-30" />
       </div>
+
+      {loading && (
+        <p className="text-center text-gray-500 mb-8">Loading posts…</p>
+      )}
+
+      {error && (
+        <p className="text-center text-sm text-red-500 mb-8">{error}</p>
+      )}
 
       {/* Post grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

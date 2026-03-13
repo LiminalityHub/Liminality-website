@@ -1,11 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs/promises');
+const fsSync = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const admin = require('firebase-admin');
 
 const PORT = Number(process.env.PORT || 4000);
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || '';
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
 const DATA_FILE = path.join(__dirname, 'data', 'posts.json');
 
 const app = express();
@@ -15,8 +21,8 @@ app.use(
   cors({
     origin(origin, callback) {
       if (!origin) return callback(null, true);
-      if (!ALLOWED_ORIGIN) return callback(null, true);
-      if (origin === ALLOWED_ORIGIN) return callback(null, true);
+      if (ALLOWED_ORIGINS.length === 0) return callback(null, true);
+      if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
       return callback(new Error('CORS blocked'));
     },
     credentials: false,
@@ -50,6 +56,57 @@ function validatePost(payload) {
   return fieldErrors;
 }
 
+let firebaseReady = false;
+
+function initFirebase() {
+  if (firebaseReady) return;
+
+  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
+
+  if (serviceAccountJson) {
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.parse(serviceAccountJson)),
+    });
+  } else if (serviceAccountPath) {
+    const raw = fsSync.readFileSync(serviceAccountPath, 'utf8');
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.parse(raw)),
+    });
+  } else {
+    admin.initializeApp();
+  }
+
+  firebaseReady = true;
+}
+
+async function verifyAuthHeader(authHeader) {
+  if (!authHeader) return null;
+  const match = authHeader.match(/^Bearer\s+(.+)$/);
+  if (!match) return null;
+
+  initFirebase();
+  return admin.auth().verifyIdToken(match[1]);
+}
+
+async function requireAuth(req, res, next) {
+  try {
+    const decoded = await verifyAuthHeader(req.headers.authorization || '');
+    if (!decoded) {
+      return res.status(401).json({ message: 'Missing auth token', code: 'AUTH_REQUIRED' });
+    }
+    req.user = decoded;
+    return next();
+  } catch (error) {
+    console.error('Auth verification failed', error);
+    return res.status(401).json({
+      message: 'Invalid auth token',
+      code: 'AUTH_INVALID',
+      detail: error?.message || 'Token verification failed',
+    });
+  }
+}
+
 app.get('/health', (_req, res) => {
   res.json({ ok: true });
 });
@@ -57,7 +114,25 @@ app.get('/health', (_req, res) => {
 app.get('/posts', async (_req, res, next) => {
   try {
     const posts = await readPosts();
-    res.json(posts);
+    let visiblePosts = posts;
+
+    const authHeader = _req.headers.authorization || '';
+    if (authHeader) {
+      try {
+        await verifyAuthHeader(authHeader);
+      } catch (error) {
+        console.error('Auth verification failed', error);
+        return res.status(401).json({
+          message: 'Invalid auth token',
+          code: 'AUTH_INVALID',
+          detail: error?.message || 'Token verification failed',
+        });
+      }
+    } else {
+      visiblePosts = posts.filter((post) => (post.status || 'published') === 'published');
+    }
+
+    res.json(visiblePosts);
   } catch (error) {
     next(error);
   }
@@ -73,13 +148,30 @@ app.get('/posts/:id', async (req, res, next) => {
       return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
     }
 
+    const authHeader = req.headers.authorization || '';
+    if (!authHeader && (post.status || 'published') !== 'published') {
+      return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
+    }
+    if (authHeader) {
+      try {
+        await verifyAuthHeader(authHeader);
+      } catch (error) {
+        console.error('Auth verification failed', error);
+        return res.status(401).json({
+          message: 'Invalid auth token',
+          code: 'AUTH_INVALID',
+          detail: error?.message || 'Token verification failed',
+        });
+      }
+    }
+
     return res.json(post);
   } catch (error) {
     return next(error);
   }
 });
 
-app.post('/posts', async (req, res, next) => {
+app.post('/posts', requireAuth, async (req, res, next) => {
   try {
     const fieldErrors = validatePost(req.body);
     if (Object.keys(fieldErrors).length > 0) {
@@ -113,7 +205,7 @@ app.post('/posts', async (req, res, next) => {
   }
 });
 
-app.put('/posts/:id', async (req, res, next) => {
+app.put('/posts/:id', requireAuth, async (req, res, next) => {
   try {
     const fieldErrors = validatePost(req.body);
     if (Object.keys(fieldErrors).length > 0) {
@@ -148,7 +240,7 @@ app.put('/posts/:id', async (req, res, next) => {
   }
 });
 
-app.delete('/posts/:id', async (req, res, next) => {
+app.delete('/posts/:id', requireAuth, async (req, res, next) => {
   try {
     const posts = await readPosts();
     const id = Number(req.params.id);
