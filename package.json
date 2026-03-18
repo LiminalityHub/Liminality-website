@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "A modern static blog built with React 18, React Router v6, and Tailwind CSS",
-  "homepage": "https://Lucalangella.github.io/react-blog",
+  "homepage": "https://LiminalityHub.github.io/Liminality-website",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

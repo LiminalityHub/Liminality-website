@@ -1,7 +1,7 @@
 
 # Liminality — React Blog
 
-**[View the Live Website](https://lucalangella.github.io/react-blog/)**
+**[View the Live Website](https://LiminalityHub.github.io/Liminality-website/)**
 
 
 ## Quick Start
