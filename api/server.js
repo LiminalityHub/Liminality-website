@@ -1,20 +1,31 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs/promises');
-const fsSync = require('fs');
-const path = require('path');
-const crypto = require('crypto');
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 
 const PORT = Number(process.env.PORT || 4000);
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || '')
   .split(',')
   .map((value) => value.trim())
   .filter(Boolean);
-const DATA_FILE = path.join(__dirname, 'data', 'posts.json');
 
 const app = express();
+
+// Initialize Firebase Admin
+if (admin.apps.length === 0) {
+  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  if (serviceAccountJson) {
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.parse(serviceAccountJson)),
+    });
+  } else {
+    // This works automatically when deployed to Firebase Functions
+    admin.initializeApp();
+  }
+}
+
+const db = admin.firestore();
 
 app.use(express.json({ limit: '1mb' }));
 app.use(
@@ -28,16 +39,6 @@ app.use(
     credentials: false,
   })
 );
-
-async function readPosts() {
-  const raw = await fs.readFile(DATA_FILE, 'utf8');
-  const parsed = JSON.parse(raw);
-  return Array.isArray(parsed) ? parsed : [];
-}
-
-async function writePosts(posts) {
-  await fs.writeFile(DATA_FILE, JSON.stringify(posts, null, 2) + '\n', 'utf8');
-}
 
 function validatePost(payload) {
   const required = ['title', 'excerpt', 'content', 'author', 'date'];
@@ -56,36 +57,11 @@ function validatePost(payload) {
   return fieldErrors;
 }
 
-let firebaseReady = false;
-
-function initFirebase() {
-  if (firebaseReady) return;
-
-  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
-  const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
-
-  if (serviceAccountJson) {
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(serviceAccountJson)),
-    });
-  } else if (serviceAccountPath) {
-    const raw = fsSync.readFileSync(serviceAccountPath, 'utf8');
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(raw)),
-    });
-  } else {
-    admin.initializeApp();
-  }
-
-  firebaseReady = true;
-}
-
 async function verifyAuthHeader(authHeader) {
   if (!authHeader) return null;
   const match = authHeader.match(/^Bearer\s+(.+)$/);
   if (!match) return null;
 
-  initFirebase();
   return admin.auth().verifyIdToken(match[1]);
 }
 
@@ -111,28 +87,32 @@ app.get('/health', (_req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/posts', async (_req, res, next) => {
+app.get('/posts', async (req, res, next) => {
   try {
-    const posts = await readPosts();
-    let visiblePosts = posts;
+    let query = db.collection('posts').orderBy('date', 'desc');
 
-    const authHeader = _req.headers.authorization || '';
+    const authHeader = req.headers.authorization || '';
+    let isAuthenticated = false;
     if (authHeader) {
       try {
         await verifyAuthHeader(authHeader);
+        isAuthenticated = true;
       } catch (error) {
-        console.error('Auth verification failed', error);
-        return res.status(401).json({
-          message: 'Invalid auth token',
-          code: 'AUTH_INVALID',
-          detail: error?.message || 'Token verification failed',
-        });
+        console.error('Auth verification failed (silent)', error);
       }
-    } else {
-      visiblePosts = posts.filter((post) => (post.status || 'published') === 'published');
     }
 
-    res.json(visiblePosts);
+    if (!isAuthenticated) {
+      query = query.where('status', '==', 'published');
+    }
+
+    const snapshot = await query.get();
+    const posts = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    res.json(posts);
   } catch (error) {
     next(error);
   }
@@ -140,23 +120,24 @@ app.get('/posts', async (_req, res, next) => {
 
 app.get('/posts/:id', async (req, res, next) => {
   try {
-    const posts = await readPosts();
-    const id = Number(req.params.id);
-    const post = posts.find((item) => Number(item.id) === id);
+    const id = req.params.id;
+    const doc = await db.collection('posts').doc(id).get();
 
-    if (!post) {
+    if (!doc.exists) {
       return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
     }
+
+    const post = { id: doc.id, ...doc.data() };
 
     const authHeader = req.headers.authorization || '';
     if (!authHeader && (post.status || 'published') !== 'published') {
       return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
     }
+
     if (authHeader) {
       try {
         await verifyAuthHeader(authHeader);
       } catch (error) {
-        console.error('Auth verification failed', error);
         return res.status(401).json({
           message: 'Invalid auth token',
           code: 'AUTH_INVALID',
@@ -182,24 +163,20 @@ app.post('/posts', requireAuth, async (req, res, next) => {
       });
     }
 
-    const posts = await readPosts();
-    const id = Date.now();
     const now = new Date().toISOString();
-
     const newPost = {
-      id,
       title: req.body.title,
       excerpt: req.body.excerpt,
       content: req.body.content,
       author: req.body.author,
       date: req.body.date,
       status: req.body.status || 'published',
+      createdAt: now,
       updatedAt: now,
     };
 
-    posts.unshift(newPost);
-    await writePosts(posts);
-    return res.status(201).json(newPost);
+    const docRef = await db.collection('posts').add(newPost);
+    return res.status(201).json({ id: docRef.id, ...newPost });
   } catch (error) {
     return next(error);
   }
@@ -216,25 +193,21 @@ app.put('/posts/:id', requireAuth, async (req, res, next) => {
       });
     }
 
-    const posts = await readPosts();
-    const id = Number(req.params.id);
-    const index = posts.findIndex((item) => Number(item.id) === id);
+    const id = req.params.id;
+    const docRef = db.collection('posts').doc(id);
+    const doc = await docRef.get();
 
-    if (index === -1) {
+    if (!doc.exists) {
       return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
     }
 
     const updated = {
-      ...posts[index],
       ...req.body,
-      id,
-      status: req.body.status || posts[index].status || 'published',
       updatedAt: new Date().toISOString(),
     };
 
-    posts[index] = updated;
-    await writePosts(posts);
-    return res.json(updated);
+    await docRef.update(updated);
+    return res.json({ id, ...doc.data(), ...updated });
   } catch (error) {
     return next(error);
   }
@@ -242,15 +215,15 @@ app.put('/posts/:id', requireAuth, async (req, res, next) => {
 
 app.delete('/posts/:id', requireAuth, async (req, res, next) => {
   try {
-    const posts = await readPosts();
-    const id = Number(req.params.id);
-    const nextPosts = posts.filter((item) => Number(item.id) !== id);
+    const id = req.params.id;
+    const docRef = db.collection('posts').doc(id);
+    const doc = await docRef.get();
 
-    if (nextPosts.length === posts.length) {
+    if (!doc.exists) {
       return res.status(404).json({ message: 'Post not found', code: 'NOT_FOUND' });
     }
 
-    await writePosts(nextPosts);
+    await docRef.delete();
     return res.status(204).send();
   } catch (error) {
     return next(error);
@@ -262,6 +235,12 @@ app.use((error, _req, res, _next) => {
   res.status(500).json({ message: 'Internal server error', code: 'INTERNAL_ERROR' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Local API running on http://localhost:${PORT}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Local API running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Firebase Functions
+exports.api = functions.https.onRequest(app);

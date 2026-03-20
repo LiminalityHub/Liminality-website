@@ -1,5 +1,15 @@
 [
   {
+    "id": 1773861168745,
+    "title": "New Test",
+    "excerpt": "Testing again the API connection.",
+    "content": "<p>Let's test the API, this is still running locally.</p>",
+    "author": "Michele",
+    "date": "2026-03-18",
+    "status": "published",
+    "updatedAt": "2026-03-18T19:12:48.745Z"
+  },
+  {
     "id": 1773394696014,
     "title": "Test Admin",
     "excerpt": "This is a test to check the API connection",

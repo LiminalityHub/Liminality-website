@@ -1,23 +1,33 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000';
+import { db } from '../firebase';
+import { 
+  collection, 
+  getDocs, 
+  query, 
+  orderBy,
+  where
+} from 'firebase/firestore';
 
-async function parseBody(response) {
-  const contentType = response.headers.get('content-type') || '';
-  if (contentType.includes('application/json')) {
-    return response.json();
-  }
-  return response.text();
-}
+const POSTS_COLLECTION = 'posts';
 
 export async function fetchPosts() {
-  const response = await fetch(`${API_BASE_URL}/posts`);
-  const body = await parseBody(response);
-
-  if (!response.ok) {
-    const error = new Error(body?.message || 'Request failed');
-    error.status = response.status;
-    error.payload = body;
+  try {
+    const postsRef = collection(db, POSTS_COLLECTION);
+    
+    // On the website, we only want to see 'published' posts
+    const q = query(
+      postsRef, 
+      where('status', '==', 'published'),
+      orderBy('date', 'desc')
+    );
+    
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error('Error fetching posts from Firestore:', error);
     throw error;
   }
-
-  return body;
 }
