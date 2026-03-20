@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Liminality-website/static/css/main.df9c4e77.css",
-    "main.js": "/Liminality-website/static/js/main.3a45b3fe.js",
+    "main.js": "/Liminality-website/static/js/main.5af8b96c.js",
     "index.html": "/Liminality-website/index.html",
     "main.df9c4e77.css.map": "/Liminality-website/static/css/main.df9c4e77.css.map",
-    "main.3a45b3fe.js.map": "/Liminality-website/static/js/main.3a45b3fe.js.map"
+    "main.5af8b96c.js.map": "/Liminality-website/static/js/main.5af8b96c.js.map"
   },
   "entrypoints": [
     "static/css/main.df9c4e77.css",
-    "static/js/main.3a45b3fe.js"
+    "static/js/main.5af8b96c.js"
   ]
 }
