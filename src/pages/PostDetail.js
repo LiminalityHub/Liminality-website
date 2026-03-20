@@ -22,7 +22,7 @@ function PostDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { posts, loading, error } = usePosts();
-  const post = posts.find((p) => p.id === Number(id));
+  const post = posts.find((p) => String(p.id) === String(id));
 
   // Update page title when post loads
   useEffect(() => {
