@@ -26,7 +26,7 @@ function PostPreview({ post }) {
         <div className="gradient-bar w-12 mb-6 group-hover:w-20 transition-all duration-300" />
 
         {/* Title */}
-        <h2 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-gray-900 transition-colors leading-snug">
+        <h2 className="text-xl font-sans font-bold text-gray-900 mb-3 group-hover:text-gray-900 transition-colors leading-snug">
           {post.title}
         </h2>
 

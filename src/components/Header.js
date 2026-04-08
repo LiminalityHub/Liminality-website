@@ -28,7 +28,7 @@ function Header() {
       <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Logo / Site name */}
         <Link to="/" className="group">
-          <span className="text-xl font-serif font-bold text-gray-900 group-hover:text-black transition-colors">
+          <span className="text-xl font-sans font-bold text-gray-900 group-hover:text-black transition-colors">
             Liminality
           </span>
         </Link>

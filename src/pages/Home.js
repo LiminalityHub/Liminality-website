@@ -14,7 +14,7 @@ function Home() {
     <div className="max-w-5xl mx-auto px-6 py-16">
       {/* Hero section */}
       <section className="mb-16 text-center">
-        <h1 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mb-4 leading-tight">
+        <h1 className="text-4xl sm:text-5xl font-sans font-bold text-gray-900 mb-4 leading-tight">
           Ideas worth
           <span className="gradient-text"> building.</span>
         </h1>

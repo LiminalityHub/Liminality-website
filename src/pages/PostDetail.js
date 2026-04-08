@@ -48,7 +48,7 @@ function PostDetail() {
   if (error && !post) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-sans font-bold text-gray-900 mb-4">
           Unable to load post
         </h1>
         <p className="text-gray-500 mb-8">{error}</p>
@@ -66,7 +66,7 @@ function PostDetail() {
   if (!post) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-sans font-bold text-gray-900 mb-4">
           Post not found
         </h1>
         <p className="text-gray-500 mb-8">
@@ -102,7 +102,7 @@ function PostDetail() {
 
       {/* Post header */}
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-gray-900 leading-tight mb-6">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold text-gray-900 leading-tight mb-6">
           {post.title}
         </h1>
 

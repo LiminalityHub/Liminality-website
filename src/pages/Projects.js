@@ -40,7 +40,7 @@ function Projects() {
     <section className="max-w-5xl mx-auto px-6 py-20">
       {/* Header */}
       <div className="mb-16 text-center">
-        <h1 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl sm:text-5xl font-sans font-bold text-gray-900 mb-4">
           Projects
         </h1>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto">
@@ -72,7 +72,7 @@ function Projects() {
               <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">
                 {project.tag}
               </span>
-              <h2 className="text-xl font-serif font-bold text-gray-900 mt-1 mb-2 group-hover:text-gray-700 transition-colors">
+              <h2 className="text-xl font-sans font-bold text-gray-900 mt-1 mb-2 group-hover:text-gray-700 transition-colors">
                 {project.title}
               </h2>
               <p className="text-sm text-gray-500 leading-relaxed">

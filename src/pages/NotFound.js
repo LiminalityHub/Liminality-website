@@ -10,11 +10,11 @@ function NotFound() {
     <div className="max-w-5xl mx-auto px-6 py-24 flex items-center justify-center min-h-[60vh]">
       <div className="text-center">
         {/* Large 404 */}
-        <h1 className="text-8xl sm:text-9xl font-serif font-bold gradient-text mb-4">
+        <h1 className="text-8xl sm:text-9xl font-sans font-bold gradient-text mb-4">
           404
         </h1>
 
-        <h2 className="text-2xl font-serif font-bold text-gray-900 mb-3">
+        <h2 className="text-2xl font-sans font-bold text-gray-900 mb-3">
           Page not found
         </h2>
 

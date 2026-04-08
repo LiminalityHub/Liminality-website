@@ -5,7 +5,7 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Branding */}
           <div className="flex items-center">
-            <span className="font-serif font-bold text-gray-900">
+            <span className="font-sans font-bold text-gray-900">
               Liminality
             </span>
           </div>
