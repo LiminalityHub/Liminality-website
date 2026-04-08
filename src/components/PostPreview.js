@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom';
 
+function getAuthorName(author) {
+  return String(author || 'Liminality').trim() || 'Liminality';
+}
+
+function getAuthorInitial(author) {
+  return getAuthorName(author).charAt(0).toUpperCase();
+}
+
 /** Estimates reading time from HTML content (avg 238 wpm) */
 function getReadingTime(html) {
   const text = html.replace(/<[^>]*>/g, '');
@@ -18,6 +26,7 @@ function formatDate(dateStr) {
 
 function PostPreview({ post }) {
   const readingTime = getReadingTime(post.content);
+  const authorName = getAuthorName(post.author);
 
   return (
     <Link to={`/post/${post.id}`} className="group block">
@@ -40,9 +49,9 @@ function PostPreview({ post }) {
           <div className="flex items-center gap-3">
             {/* Author avatar placeholder */}
             <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 text-xs font-semibold">
-              {post.author.charAt(0)}
+              {getAuthorInitial(post.author)}
             </div>
-            <span className="text-gray-600 font-medium">{post.author}</span>
+            <span className="text-gray-600 font-medium">{authorName}</span>
           </div>
           <div className="flex items-center gap-3">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
