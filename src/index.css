@@ -110,13 +110,17 @@
   .prose-blog img {
     @apply rounded-lg my-[0.5em] max-w-full;
   }
+}
 
-  /* YouTube embed styling */
-  .notion-youtube-wrap {
-    @apply my-[0.5em] aspect-video w-full;
-  }
+/* YouTube embed styling */
+.notion-youtube-wrap {
+  margin: 0.5em 0;
+  width: 100%;
+}
 
-  .notion-youtube-wrap iframe {
-    @apply w-full h-full rounded-lg border-none;
-  }
+.notion-youtube-wrap iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 8px;
 }
