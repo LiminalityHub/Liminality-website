@@ -2,6 +2,14 @@ import { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { usePosts } from '../hooks/usePosts';
 
+function getAuthorName(author) {
+  return String(author || 'Liminality').trim() || 'Liminality';
+}
+
+function getAuthorInitial(author) {
+  return getAuthorName(author).charAt(0).toUpperCase();
+}
+
 /** Estimates reading time from HTML content */
 function getReadingTime(html) {
   const text = html.replace(/<[^>]*>/g, '');
@@ -83,6 +91,7 @@ function PostDetail() {
   }
 
   const readingTime = getReadingTime(post.content);
+  const authorName = getAuthorName(post.author);
 
   // Find adjacent posts for navigation
   const currentIndex = posts.findIndex((p) => p.id === post.id);
@@ -110,9 +119,9 @@ function PostDetail() {
           {/* Author */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 text-xs font-semibold">
-              {post.author.charAt(0)}
+              {getAuthorInitial(post.author)}
             </div>
-            <span className="font-medium text-gray-700">{post.author}</span>
+            <span className="font-medium text-gray-700">{authorName}</span>
           </div>
 
           <span className="text-gray-300">&middot;</span>
