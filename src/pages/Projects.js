@@ -1,33 +1,34 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
     title: 'React Blog',
     description: 'A modern, minimalist blog built with React and Tailwind CSS.',
-    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
     url: 'https://github.com/Lucalangella/react-blog',
-    tag: 'Website',
+    tag: 'WEBSITE',
+    year: '2024',
   },
   {
     title: 'Object Detection App',
     description: 'An iOS app for real-time object detection using machine learning.',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop',
     url: 'https://github.com/Lucalangella',
-    tag: 'App',
+    tag: 'APP',
+    year: '2024',
   },
   {
     title: 'Tennis Court Classifier',
     description: 'A deep learning model that classifies tennis court surfaces.',
-    image: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600&h=400&fit=crop',
     url: 'https://github.com/Lucalangella',
     tag: 'AI / ML',
+    year: '2023',
   },
   {
     title: 'Portfolio',
     description: 'Personal portfolio website showcasing projects and work.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop',
     url: 'https://github.com/Lucalangella',
-    tag: 'Website',
+    tag: 'WEBSITE',
+    year: '2023',
   },
 ];
 
@@ -37,47 +38,60 @@ function Projects() {
   }, []);
 
   return (
-    <section className="max-w-5xl mx-auto px-6 py-20">
-      {/* Header */}
-      <div className="mb-16 text-center">
-        <h1 className="text-4xl sm:text-5xl font-sans font-bold text-gray-900 mb-4">
-          Projects
+    <section className="max-w-6xl mx-auto px-6 py-16">
+
+      {/* Section header */}
+      <div className="flex items-center gap-4 mb-4">
+        <span className="font-mono text-xs tracking-widest uppercase text-liminal-tertiary">03</span>
+        <div className="h-px flex-1 bg-liminal-quaternary" />
+        <span className="font-mono text-xs tracking-widest uppercase text-liminal-secondary">Projects</span>
+      </div>
+
+      {/* Title block */}
+      <div className="mb-16 pt-8 border-b border-liminal-quaternary pb-10">
+        <h1 className="font-mono text-5xl sm:text-6xl font-bold text-liminal-primary leading-none tracking-tighter uppercase mb-4">
+          PROJECTS
         </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+        <p className="font-grotesk text-sm text-liminal-secondary max-w-md leading-relaxed">
           A collection of apps, websites, and experiments I've built.
         </p>
       </div>
 
-      {/* Project Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {projects.map((project) => (
+      {/* Project list */}
+      <div className="divide-y divide-liminal-quaternary">
+        {projects.map((project, i) => (
           <a
             key={project.title}
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            id={`project-${i + 1}`}
+            className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-7 hover:opacity-60 transition-opacity duration-200"
           >
-            {/* Image */}
-            <div className="aspect-[3/2] overflow-hidden bg-gray-100">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+            {/* Left: index + title + description */}
+            <div className="flex items-start gap-6">
+              <span className="font-mono text-xs text-liminal-tertiary mt-1 tracking-wider w-6 shrink-0">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h2 className="font-mono text-base font-bold text-liminal-primary leading-snug mb-1">
+                  {project.title}
+                </h2>
+                <p className="font-grotesk text-sm text-liminal-secondary leading-relaxed">
+                  {project.description}
+                </p>
+              </div>
             </div>
 
-            {/* Info */}
-            <div className="p-6">
-              <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+            {/* Right: tag + year + arrow */}
+            <div className="flex items-center gap-6 shrink-0 pl-12 sm:pl-0">
+              <span className="font-mono text-xs tracking-widest uppercase text-liminal-tertiary">
                 {project.tag}
               </span>
-              <h2 className="text-xl font-sans font-bold text-gray-900 mt-1 mb-2 group-hover:text-gray-700 transition-colors">
-                {project.title}
-              </h2>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                {project.description}
-              </p>
+              <span className="font-mono text-xs text-liminal-tertiary">{project.year}</span>
+              <span className="font-mono text-xs tracking-widest text-liminal-secondary group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                →
+              </span>
             </div>
           </a>
         ))}
