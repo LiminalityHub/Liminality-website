@@ -54,15 +54,27 @@
   }
 
   .prose-blog h1 {
-    @apply text-[28px] font-bold mt-[1em] mb-[0.3em] leading-[1.25] text-gray-900;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    margin: 1em 0 0.3em;
+    line-height: 1.25;
+    @apply text-gray-900;
   }
 
   .prose-blog h2 {
-    @apply text-[22px] font-bold mt-[0.8em] mb-[0.25em] leading-[1.3] text-gray-900;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    margin: 0.8em 0 0.25em;
+    line-height: 1.3;
+    @apply text-gray-900;
   }
 
   .prose-blog h3 {
-    @apply text-[18px] font-semibold mt-[0.7em] mb-[0.2em] leading-[1.35] text-gray-900;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0.7em 0 0.2em;
+    line-height: 1.35;
+    @apply text-gray-900;
   }
 
   .prose-blog p {
@@ -82,8 +94,8 @@
   }
 
   .prose-blog blockquote {
-    @apply border-l-[3px] border-[#111] my-[0.5em] px-4 py-1 text-[#555] not-italic;
-    font-style: normal;
+    @apply border-l-[3px] border-[#111] my-[0.5em] px-4 py-1 text-[#555];
+    font-style: italic;
   }
 
   .prose-blog code {

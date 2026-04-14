@@ -1,33 +1,20 @@
-import { db } from '../firebase';
-import { 
-  collection, 
-  getDocs, 
-  query, 
-  orderBy,
-  where
-} from 'firebase/firestore';
+import { supabase } from '../supabase';
 
-const POSTS_COLLECTION = 'posts';
+const POSTS_TABLE = 'posts';
 
 export async function fetchPosts() {
   try {
-    const postsRef = collection(db, POSTS_COLLECTION);
+    const { data, error } = await supabase
+      .from(POSTS_TABLE)
+      .select('*')
+      .eq('status', 'published')
+      .order('date', { ascending: false });
     
-    // On the website, we only want to see 'published' posts
-    const q = query(
-      postsRef, 
-      where('status', '==', 'published'),
-      orderBy('date', 'desc')
-    );
+    if (error) throw error;
     
-    const snapshot = await getDocs(q);
-    
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    return data || [];
   } catch (error) {
-    console.error('Error fetching posts from Firestore:', error);
+    console.error('Error fetching posts from Supabase:', error);
     throw error;
   }
 }
