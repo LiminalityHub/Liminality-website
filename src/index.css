@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -11,70 +12,82 @@
   }
 
   body {
-    @apply bg-gray-50 text-gray-900 font-sans leading-relaxed;
+    @apply bg-liminal-bg text-liminal-primary font-grotesk leading-relaxed;
   }
 
-  /* Better heading defaults */
-  h1, h2, h3, h4 {
-    @apply font-serif tracking-tight;
-  }
-
-  /* Selection color */
   ::selection {
-    @apply bg-gray-200 text-black;
+    background: rgba(14, 13, 10, 0.15);
+    color: #0E0D0A;
   }
 }
 
 @layer components {
-  /* Monochrome accent used across the site */
-  .gradient-text {
-    @apply text-black;
+  /* ── Grid pattern utility ── */
+  .liminal-grid {
+    background-image:
+      linear-gradient(rgba(14, 13, 10, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14, 13, 10, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  .gradient-bar {
-    @apply h-px bg-gray-300 rounded-full;
+  /* ── Thin horizontal rule ── */
+  .liminal-rule {
+    @apply h-px bg-liminal-quaternary w-full;
   }
 
-  /* Card hover lift effect */
-  .card-hover {
-    @apply transition-all duration-300 ease-out;
+  /* ── Corner accent marks (L-shaped) ── */
+  .corner-mark {
+    @apply absolute w-3 h-3 border-liminal-secondary;
+    border-width: 1px;
   }
-  .card-hover:hover {
-    @apply -translate-y-1 shadow-xl;
+  .corner-mark-tl {
+    @apply corner-mark top-0 left-0 border-r-0 border-b-0;
+  }
+  .corner-mark-tr {
+    @apply corner-mark top-0 right-0 border-l-0 border-b-0;
+  }
+  .corner-mark-bl {
+    @apply corner-mark bottom-0 left-0 border-r-0 border-t-0;
+  }
+  .corner-mark-br {
+    @apply corner-mark bottom-0 right-0 border-l-0 border-t-0;
   }
 
-  /* Prose-like styles for blog post content */
+  /* ── Prose styles for blog body ── */
   .prose-blog p {
-    @apply text-gray-700 leading-8 mb-6 text-lg;
+    @apply text-liminal-secondary leading-8 mb-6 text-base font-grotesk;
   }
   .prose-blog h2 {
-    @apply text-2xl font-bold text-gray-900 mt-10 mb-4;
+    @apply text-xl font-bold text-liminal-primary mt-10 mb-4 font-mono uppercase tracking-widest;
   }
   .prose-blog h3 {
-    @apply text-xl font-semibold text-gray-900 mt-8 mb-3;
+    @apply text-base font-semibold text-liminal-primary mt-8 mb-3 font-mono uppercase tracking-wider;
   }
   .prose-blog ul {
-    @apply list-disc list-inside mb-6 space-y-2 text-gray-700;
+    @apply list-disc list-inside mb-6 space-y-2 text-liminal-secondary font-grotesk;
   }
   .prose-blog ol {
-    @apply list-decimal list-inside mb-6 space-y-2 text-gray-700;
+    @apply list-decimal list-inside mb-6 space-y-2 text-liminal-secondary font-grotesk;
   }
   .prose-blog blockquote {
-    @apply border-l-4 border-gray-400 pl-6 italic text-gray-600 my-8;
+    @apply border-l border-liminal-secondary pl-6 italic text-liminal-secondary my-8 font-grotesk;
   }
   .prose-blog code {
-    @apply bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-900;
+    @apply bg-liminal-quaternary px-2 py-0.5 text-sm font-mono text-liminal-primary;
   }
   .prose-blog pre {
-    @apply bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto mb-6;
+    @apply bg-liminal-primary text-liminal-bg p-6 overflow-x-auto mb-6 font-mono text-sm;
   }
   .prose-blog pre code {
-    @apply bg-transparent text-gray-100 p-0;
+    @apply bg-transparent text-liminal-bg p-0;
   }
   .prose-blog a {
-    @apply text-gray-900 underline decoration-gray-400 underline-offset-2 hover:decoration-gray-900 transition-colors;
+    @apply text-liminal-primary underline decoration-liminal-tertiary underline-offset-2 hover:decoration-liminal-primary transition-colors;
   }
   .prose-blog img {
-    @apply rounded-xl my-8;
+    @apply my-8;
+  }
+  .prose-blog strong {
+    @apply text-liminal-primary font-semibold;
   }
 }
