@@ -103,7 +103,7 @@ function PostDetail() {
       <header className="mb-10">
         {/* Top coordinate marker */}
         <div className="flex items-center gap-3 mb-6">
-          <span className="font-mono text-xs text-liminal-tertiary tracking-widest">00°00′00″N</span>
+          <span className="font-mono text-xs text-liminal-tertiary tracking-widest">40°49'16.0"N 14°25'34.0"E</span>
           <div className="h-px flex-1 bg-liminal-quaternary" />
         </div>
 
