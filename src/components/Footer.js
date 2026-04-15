@@ -9,11 +9,11 @@ function Footer() {
       <div className="absolute inset-0 liminal-grid opacity-60 pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
 
           {/* Left — Branding */}
-          <div>
-            <div className="flex items-center gap-3 mb-4">
+          <div className="flex justify-start">
+            <div className="flex items-center gap-3">
               <div className="w-6 h-6 border border-liminal-primary flex items-center justify-center">
                 <div className="w-1.5 h-1.5 rounded-full bg-liminal-primary" />
               </div>
@@ -21,58 +21,31 @@ function Footer() {
                 Liminality
               </span>
             </div>
-            <p className="font-grotesk text-sm text-liminal-secondary leading-relaxed max-w-xs">
-              Thoughts on design, development, and building things that matter.
-              Exploring the threshold between idea and execution.
-            </p>
           </div>
 
-          {/* Center — Quote with vertical markers */}
-          <div className="relative flex flex-col items-center text-center">
-            {/* top coordinate marker */}
-            <div className="flex items-center gap-2 mb-4">
-              <span className="font-mono text-xs text-liminal-tertiary tracking-wider">00°00′00″N</span>
-              <div className="w-8 h-px bg-liminal-tertiary" />
-              <span className="font-mono text-xs text-liminal-tertiary tracking-wider">THRESHOLD</span>
-            </div>
-
-            {/* Vertical line */}
-            <div className="w-px h-6 bg-liminal-tertiary mb-4" />
-
-            <blockquote className="font-mono text-xs tracking-widest uppercase text-liminal-secondary leading-loose">
-              "HELLO PEOPLE<br />BY LUCA"
-            </blockquote>
-
-            {/* Vertical line */}
-            <div className="w-px h-6 bg-liminal-tertiary mt-4 mb-4" />
-
-            {/* bottom marker */}
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs text-liminal-tertiary tracking-wider">SPACE</span>
-              <div className="w-8 h-px bg-liminal-tertiary" />
-              <span className="font-mono text-xs text-liminal-tertiary tracking-wider">00°00′00″S</span>
-            </div>
-          </div>
-
-          {/* Right — Navigation + copyright */}
-          <div className="flex flex-col items-start md:items-end gap-4">
-            <nav className="flex flex-col gap-2" aria-label="Footer navigation">
-              {[
-                { path: '/', label: 'Articles' },
-                { path: '/projects', label: 'Projects' },
-              ].map(({ path, label }) => (
-                <Link
-                  key={path}
-                  to={path}
-                  className="font-mono text-xs tracking-widest uppercase text-liminal-secondary hover:text-liminal-primary transition-colors duration-200"
-                >
-                  {label}
-                </Link>
-              ))}
+          {/* Center — Navigation */}
+          <div className="flex justify-center">
+            <nav className="flex items-center gap-6" aria-label="Footer navigation">
+              <Link
+                to="/"
+                className="font-mono text-xs tracking-widest uppercase text-liminal-secondary hover:text-liminal-primary transition-colors duration-200"
+              >
+                Articles
+              </Link>
+              <div className="w-1.5 h-1.5 bg-liminal-primary" />
+              <Link
+                to="/projects"
+                className="font-mono text-xs tracking-widest uppercase text-liminal-secondary hover:text-liminal-primary transition-colors duration-200"
+              >
+                Projects
+              </Link>
             </nav>
-            <div className="h-px w-16 bg-liminal-quaternary" />
-            <p className="font-mono text-xs text-liminal-tertiary tracking-wider">
-              {year} Liminality
+          </div>
+
+          {/* Right — Copyright */}
+          <div className="flex justify-end">
+            <p className="font-mono text-xs text-liminal-tertiary tracking-wider uppercase">
+              &copy; {year} Liminality
             </p>
           </div>
 
