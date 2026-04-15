@@ -82,15 +82,19 @@
   }
 
   .prose-blog ul {
-    @apply list-disc list-inside mb-6 space-y-2 text-liminal-secondary font-grotesk;
+    @apply list-disc ml-6 mb-6 space-y-2 text-liminal-secondary font-grotesk;
   }
 
   .prose-blog ol {
-    @apply list-decimal list-inside mb-6 space-y-2 text-liminal-secondary font-grotesk;
+    @apply list-decimal ml-6 mb-6 space-y-2 text-liminal-secondary font-grotesk;
   }
 
   .prose-blog li {
     @apply my-0.5;
+  }
+
+  .prose-blog li p {
+    @apply inline;
   }
 
   .prose-blog blockquote {
