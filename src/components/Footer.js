@@ -8,7 +8,7 @@ function Footer() {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 liminal-grid opacity-60 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-16">
+      <div className="relative max-w-6xl mx-auto px-6 py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
 
           {/* Left — Branding */}
@@ -45,7 +45,7 @@ function Footer() {
           {/* Right — Copyright */}
           <div className="flex justify-end">
             <p className="font-mono text-xs text-liminal-tertiary tracking-wider uppercase">
-              &copy; {year} Liminality
+            Liminality™ {year} 
             </p>
           </div>
 

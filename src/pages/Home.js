@@ -20,7 +20,7 @@ function Home() {
         {/* Grid background */}
         <div className="absolute inset-0 liminal-grid opacity-50 pointer-events-none" />
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-10">
+        <div className="relative max-w-6xl mx-auto px-6 pt-4 pb-4">
           {/* Top markers row */}
           <div className="flex items-center gap-4 mb-6">
             <span className="font-mono text-xs text-liminal-tertiary tracking-widest">40°49'16.0"N 14°25'34.0"E</span>
