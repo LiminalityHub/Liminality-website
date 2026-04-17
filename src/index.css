@@ -106,11 +106,14 @@
   }
 
   .prose-blog pre {
-    @apply bg-liminal-primary text-liminal-bg overflow-x-auto mb-6 font-mono text-sm;
+    @apply bg-liminal-primary text-liminal-bg mb-6 font-mono text-sm;
     position: relative;
     padding: 3.25rem 1.5rem 1.5rem;
     border: 1px solid rgba(14, 13, 10, 0.16);
     border-radius: 0.85rem;
+    overflow-x: visible;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .prose-blog pre::before {
@@ -129,12 +132,16 @@
   .prose-blog pre code {
     @apply bg-transparent text-liminal-bg p-0;
     display: block;
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .prose-blog pre code.hljs {
     background: transparent;
     padding: 0;
+    overflow-x: visible;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .prose-blog a {
