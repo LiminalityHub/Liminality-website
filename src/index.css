@@ -26,7 +26,7 @@
     background-image:
       linear-gradient(rgba(14, 13, 10, 0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(14, 13, 10, 0.06) 1px, transparent 1px);
-    background-size: 24px 32px;
+    background-size: 32px 32px;
   }
 
   /* ── Thin horizontal rule ── */
