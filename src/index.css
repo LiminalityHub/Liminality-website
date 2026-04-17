@@ -106,11 +106,35 @@
   }
 
   .prose-blog pre {
-    @apply bg-liminal-primary text-liminal-bg p-6 overflow-x-auto mb-6 font-mono text-sm;
+    @apply bg-liminal-primary text-liminal-bg overflow-x-auto mb-6 font-mono text-sm;
+    position: relative;
+    padding: 3.25rem 1.5rem 1.5rem;
+    border: 1px solid rgba(14, 13, 10, 0.16);
+    border-radius: 0.85rem;
+  }
+
+  .prose-blog pre::before {
+    content: attr(data-language-label);
+    position: absolute;
+    top: 0.9rem;
+    right: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(254, 252, 244, 0.72);
   }
 
   .prose-blog pre code {
     @apply bg-transparent text-liminal-bg p-0;
+    display: block;
+    white-space: pre;
+  }
+
+  .prose-blog pre code.hljs {
+    background: transparent;
+    padding: 0;
   }
 
   .prose-blog a {

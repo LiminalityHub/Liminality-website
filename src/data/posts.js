@@ -52,7 +52,7 @@ const posts = [
 
 <p>Network failures mean requests get retried. If your POST endpoint creates a duplicate record on retry, you have a bug — not a network problem. Every mutating operation should accept an idempotency key:</p>
 
-<pre><code>POST /api/orders
+<pre data-language="plaintext" data-language-label="Plain text"><code class="language-plaintext">POST /api/orders
 Idempotency-Key: ord_8x7k2m9p
 Content-Type: application/json
 
@@ -140,7 +140,7 @@ Content-Type: application/json
 
 <p>Consider a blog post page. The post content, author info, and related articles are all static once fetched. Only the comment form and like button need client interactivity. With RSC, the entire page minus those two elements ships zero JavaScript to the client.</p>
 
-<pre><code>// PostPage.server.js — runs on the server
+<pre data-language="jsx" data-language-label="JSX"><code class="language-jsx">// PostPage.server.js — runs on the server
 async function PostPage({ params }) {
   const post = await db.posts.find(params.id);
   const related = await db.posts.related(post.id);
@@ -234,7 +234,7 @@ async function PostPage({ params }) {
 
 <p>The React DevTools Profiler is your best friend. Record an interaction and look for components that re-render when they shouldn't. In our app, a context provider at the root was causing the entire tree to re-render on every state change.</p>
 
-<pre><code>// Before: one giant context
+<pre data-language="javascript" data-language-label="JavaScript"><code class="language-javascript">// Before: one giant context
 const AppContext = createContext({ user, theme, cart, notifications });
 
 // After: split by update frequency
